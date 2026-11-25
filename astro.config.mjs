@@ -2,7 +2,7 @@
 import starlight from "@astrojs/starlight";
 import { defineConfig } from "astro/config";
 
-// The index of the documentation sites at https://docs.i2bskn.com/.
+// The index of the documentation sites of the open-source projects at https://docs.i2bskn.com/.
 // Each library publishes its own docs from its repository as a GitHub Pages project site,
 // which is served under this domain at /<repository>/.
 export default defineConfig({
@@ -11,7 +11,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "i2bskn docs",
-      description: "Documentation for the open-source libraries by i2bskn.",
+      description: "Documentation for the open-source libraries and products by i2bskn.",
       social: [{ icon: "github", label: "GitHub", href: "https://github.com/i2bskn" }],
       // The index has no content to search; each library's site has its own search.
       pagefind: false,

@@ -1,39 +1,62 @@
 ---
-import { libraries } from "../data/libraries";
+import { projects, sections } from "../data/projects";
+
+const groups = sections
+  .map((section) => ({ ...section, items: projects.filter((p) => p.kind === section.kind) }))
+  .filter((group) => group.items.length > 0);
 ---
 
-<section class="gh-sec not-content" aria-labelledby="gh-lib-title">
-  <p class="gh-kicker">Libraries</p>
-  <h2 id="gh-lib-title">Documentation</h2>
-  <ul class="gh-libs">
-    {
-      libraries.map((lib) => (
-        <li class="gh-lib">
-          <a class="gh-lib-main" href={`/${lib.repo}/`}>
-            <span class="gh-lib-stack">{lib.stack.join(" · ")}</span>
-            <span class="gh-lib-name">
-              {lib.name}
-              <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
-                <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" />
-              </svg>
-            </span>
-            <span class="gh-lib-summary">{lib.summary}</span>
-          </a>
-          <ul class="gh-lib-links" aria-label={`${lib.name} links`}>
-            <li>
-              <a href={`https://github.com/i2bskn/${lib.repo}`}>GitHub</a>
+{
+  groups.map((group) => (
+    <section class="gh-sec not-content" aria-labelledby={`gh-${group.kind}-title`}>
+      <h2 id={`gh-${group.kind}-title`}>{group.title}</h2>
+      <ul class="gh-libs">
+        {group.items.map((p) => {
+          const external = Boolean(p.url);
+          const href = p.url ?? `/${p.repo}/`;
+          return (
+            <li class="gh-lib">
+              <a class="gh-lib-main" href={href}>
+                <span class="gh-lib-meta">
+                  <span class="gh-lib-stack">{p.stack.join(" · ")}</span>
+                  {p.lang && (
+                    <span class="gh-lib-lang" lang={p.lang.code}>
+                      {p.lang.label}
+                    </span>
+                  )}
+                </span>
+                <span class="gh-lib-name">
+                  {p.name}
+                  {external ? (
+                    <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+                      <path d="M6 3.5H3.5v9h9V10M9 3.5h3.5V7M12.5 3.5 7 9" fill="none" stroke="currentColor" stroke-width="1.5" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                      <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+                    </svg>
+                  )}
+                </span>
+                {external && <span class="gh-lib-host">{new URL(href).host}</span>}
+                <span class="gh-lib-summary">{p.summary}</span>
+              </a>
+              <ul class="gh-lib-links" aria-label={`${p.name} links`}>
+                <li>
+                  <a href={`https://github.com/i2bskn/${p.repo}`}>GitHub</a>
+                </li>
+                {p.npm && (
+                  <li>
+                    <a href={`https://www.npmjs.com/package/${p.npm}`}>npm</a>
+                  </li>
+                )}
+              </ul>
             </li>
-            {lib.npm && (
-              <li>
-                <a href={`https://www.npmjs.com/package/${lib.npm}`}>npm</a>
-              </li>
-            )}
-          </ul>
-        </li>
-      ))
-    }
-  </ul>
-</section>
+          );
+        })}
+      </ul>
+    </section>
+  ))
+}
 
 <footer class="gh-foot not-content">
   <span class="gh-foot-name">docs.i2bskn.com</span>
@@ -45,20 +68,15 @@ import { libraries } from "../data/libraries";
 
 <style>
   .gh-sec {
-    padding-block: 3rem 4rem;
+    padding-block: 3rem 1rem;
     border-top: 1px solid var(--sl-color-hairline);
   }
-  .gh-kicker {
-    margin: 0 0 0.75rem;
-    font-family: var(--__sl-font-mono);
-    font-size: var(--sl-text-xs);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--gh-accent-text);
+  .gh-sec:last-of-type {
+    padding-bottom: 4rem;
   }
   h2 {
     margin: 0;
-    font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+    font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
     font-weight: 600;
     line-height: 1.1;
     letter-spacing: -0.03em;
@@ -95,6 +113,26 @@ import { libraries } from "../data/libraries";
     padding: 1.4rem 1.4rem 1rem;
     color: inherit;
     text-decoration: none;
+  }
+  .gh-lib-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem 0.75rem;
+  }
+  .gh-lib-lang {
+    padding: 0.05rem 0.5rem;
+    border: 1px solid var(--sl-color-accent);
+    border-radius: 999px;
+    font-size: var(--sl-text-2xs);
+    font-weight: 500;
+    color: var(--gh-accent-text);
+  }
+  .gh-lib-host {
+    margin-top: -0.25rem;
+    font-family: var(--__sl-font-mono);
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-3);
   }
   .gh-lib-stack {
     font-family: var(--__sl-font-mono);
