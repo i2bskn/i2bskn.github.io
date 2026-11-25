@@ -1,0 +1,178 @@
+---
+import { libraries } from "../data/libraries";
+---
+
+<section class="gh-sec not-content" aria-labelledby="gh-lib-title">
+  <p class="gh-kicker">Libraries</p>
+  <h2 id="gh-lib-title">Documentation</h2>
+  <ul class="gh-libs">
+    {
+      libraries.map((lib) => (
+        <li class="gh-lib">
+          <a class="gh-lib-main" href={`/${lib.repo}/`}>
+            <span class="gh-lib-stack">{lib.stack.join(" · ")}</span>
+            <span class="gh-lib-name">
+              {lib.name}
+              <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+                <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" fill="none" stroke="currentColor" stroke-width="1.5" />
+              </svg>
+            </span>
+            <span class="gh-lib-summary">{lib.summary}</span>
+          </a>
+          <ul class="gh-lib-links" aria-label={`${lib.name} links`}>
+            <li>
+              <a href={`https://github.com/i2bskn/${lib.repo}`}>GitHub</a>
+            </li>
+            {lib.npm && (
+              <li>
+                <a href={`https://www.npmjs.com/package/${lib.npm}`}>npm</a>
+              </li>
+            )}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<footer class="gh-foot not-content">
+  <span class="gh-foot-name">docs.i2bskn.com</span>
+  <ul>
+    <li><a href="https://i2bskn.com/">i2bskn.com</a></li>
+    <li><a href="https://github.com/i2bskn">GitHub</a></li>
+  </ul>
+</footer>
+
+<style>
+  .gh-sec {
+    padding-block: 3rem 4rem;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .gh-kicker {
+    margin: 0 0 0.75rem;
+    font-family: var(--__sl-font-mono);
+    font-size: var(--sl-text-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gh-accent-text);
+  }
+  h2 {
+    margin: 0;
+    font-size: clamp(1.75rem, 1.3rem + 1.6vw, 2.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    color: var(--sl-color-white);
+  }
+  .gh-libs {
+    display: grid;
+    gap: 1rem;
+    margin: 2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  @media (min-width: 48rem) {
+    .gh-libs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  .gh-lib {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--gh-line);
+    border-radius: var(--gh-radius);
+    background: var(--gh-surface);
+    transition: border-color 160ms ease;
+  }
+  .gh-lib:hover,
+  .gh-lib:focus-within {
+    border-color: var(--sl-color-accent);
+  }
+  .gh-lib-main {
+    display: grid;
+    gap: 0.5rem;
+    flex: 1;
+    padding: 1.4rem 1.4rem 1rem;
+    color: inherit;
+    text-decoration: none;
+  }
+  .gh-lib-stack {
+    font-family: var(--__sl-font-mono);
+    font-size: var(--sl-text-2xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sl-color-gray-3);
+  }
+  .gh-lib-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--__sl-font-mono);
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--sl-color-white);
+  }
+  .gh-lib-name svg {
+    color: var(--gh-accent-text);
+    transition: transform 160ms ease;
+  }
+  .gh-lib-main:hover .gh-lib-name svg {
+    transform: translateX(3px);
+  }
+  .gh-lib-summary {
+    font-size: var(--sl-text-sm);
+    line-height: 1.6;
+    color: var(--sl-color-gray-2);
+  }
+  .gh-lib-links {
+    display: flex;
+    gap: 0.25rem 1.5rem;
+    margin: 0;
+    padding: 0 1.4rem 0.6rem;
+    list-style: none;
+    border-top: 1px solid var(--gh-line);
+  }
+  .gh-lib-links a {
+    display: inline-block;
+    padding-block: 0.7rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+  .gh-lib-links a:hover {
+    color: var(--gh-accent-text);
+  }
+
+  .gh-foot {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding-block: 1.5rem 0.5rem;
+    border-top: 1px solid var(--sl-color-hairline);
+    font-size: var(--sl-text-sm);
+  }
+  .gh-foot-name {
+    font-family: var(--__sl-font-mono);
+    font-size: var(--sl-text-xs);
+    color: var(--sl-color-gray-2);
+  }
+  .gh-foot ul {
+    display: flex;
+    gap: 0.5rem 1.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .gh-foot a {
+    display: inline-block;
+    padding-block: 0.8rem;
+    color: var(--sl-color-gray-2);
+    text-decoration: none;
+  }
+  .gh-foot a:hover {
+    color: var(--gh-accent-text);
+  }
+</style>
