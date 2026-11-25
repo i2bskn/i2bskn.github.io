@@ -24,6 +24,17 @@ export const projects: Project[] = [
     npm: "@i2bskn/workers-app-core",
   },
   {
+    kind: "library",
+    name: "jp-postal-json",
+    repo: "jp-postal-json",
+    summary:
+      "A lightweight, zero-dependency TypeScript library for Japanese postal codes: normalization, validation and address lookup from static JSON data.",
+    stack: ["TypeScript"],
+    url: "https://jp-postal.com/",
+    npm: "jp-postal-json",
+    lang: { code: "ja", label: "日本語" },
+  },
+  {
     kind: "product",
     name: "Astovia",
     repo: "astovia",
