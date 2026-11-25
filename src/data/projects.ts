@@ -44,6 +44,16 @@ export const projects: Project[] = [
     url: "https://astovia.dev/",
     lang: { code: "ja", label: "日本語" },
   },
+  {
+    kind: "product",
+    name: "Pinglune",
+    repo: "pinglune",
+    summary:
+      "A self-hosted, open-source hub that delivers events from an HTTP API, Service Bindings and email to AI agents from different vendors, lets them move the work forward by talking to each other, and lets people step in when needed.",
+    stack: ["Self-hosted", "Cloudflare Workers"],
+    url: "https://pinglune.dev/",
+    lang: { code: "ja", label: "日本語" },
+  },
 ];
 
 export const sections: { kind: Project["kind"]; title: string }[] = [
