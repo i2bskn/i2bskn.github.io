@@ -25,6 +25,14 @@ export const projects: Project[] = [
   },
   {
     kind: "library",
+    name: "authlume",
+    repo: "authlume",
+    summary:
+      "Independently importable Go packages for passwords, server-side sessions, TOTP, WebAuthn and passkeys, OpenID Connect and MCP OAuth.",
+    stack: ["Go", "net/http"],
+  },
+  {
+    kind: "library",
     name: "jp-postal-json",
     repo: "jp-postal-json",
     summary:
