@@ -63,6 +63,15 @@ export const projects: Project[] = [
     stack: ["Self-hosted", "Cloudflare Workers", "D1", "R2"],
     lang: { code: "ja", label: "日本語" },
   },
+  {
+    kind: "product",
+    name: "Querune",
+    repo: "querune",
+    summary:
+      "A self-hosted SEO workbench: it imports Search Console and GA4 data every day, keeps it with your article list and memos, and lets AI apps read it over MCP to review the results and plan the next step.",
+    stack: ["Self-hosted", "Cloudflare Workers", "D1", "MCP"],
+    lang: { code: "ja", label: "日本語" },
+  },
 ];
 
 export const sections: { kind: Project["kind"]; title: string }[] = [
